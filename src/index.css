@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-ivory: #f8f6f1;
+  --color-ink: #0f0f10;
+  --color-graphite: #1f2024;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+/* ===== Landing Page (Escola de Música) ===== */
+html { scroll-behavior: smooth; }
+
+.font-serif { font-family: var(--font-serif); }
+
+.reveal { opacity: 0; transform: translateY(2.5rem); transition: opacity 1s ease-out, transform 1s ease-out; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+.reveal-left { opacity: 0; transform: translateX(-2rem); transition: opacity 1s ease-out, transform 1s ease-out; }
+.reveal-left.is-visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right { opacity: 0; transform: translateX(2rem); transition: opacity 1s ease-out, transform 1s ease-out; }
+.reveal-right.is-visible { opacity: 1; transform: translateX(0); }
+
+.floating-note { position: absolute; opacity: 0; will-change: transform, opacity; pointer-events: none; transition: opacity 1.2s ease-out; }
+.floating-note.is-visible { opacity: 0.18; }
+
+.staff-line { stroke-dasharray: 2000; stroke-dashoffset: 2000; transition: stroke-dashoffset 2.5s ease-out; }
+.staff-line.is-visible { stroke-dashoffset: 0; }
+
+.header-blur {
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  background-color: rgba(248, 246, 241, 0.78);
+}
+
+.nav-link { position: relative; }
+.nav-link::after {
+  content: ''; position: absolute; left: 0; bottom: -4px; height: 1px; width: 100%;
+  background-color: currentColor; transform: scaleX(0); transform-origin: right;
+  transition: transform .4s ease;
+}
+.nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.teacher-card { transition: transform .5s ease, box-shadow .5s ease; }
+.teacher-card:hover { transform: translateY(-6px); box-shadow: 0 25px 50px -20px rgba(15,15,16,0.25); }
+
+.snap-row { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+.snap-row > * { scroll-snap-align: start; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .staff-line { stroke-dashoffset: 0 !important; transition: none !important; }
+  .floating-note { opacity: 0.18 !important; }
+}
